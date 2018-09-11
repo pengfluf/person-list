@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { withRouter } from 'react-router';
 
 import PersonList from 'components/PersonList';
 import PersonModal from 'components/PersonModal';
@@ -27,15 +26,21 @@ import {
   hideModal,
 } from './actions';
 
+import Wrapper from './styled/Wrapper';
+
 export class MainPage extends React.Component {
   componentDidMount() {
     this.props.getPersons(0);
   }
 
   render() {
-    const { persons } = this.props.mainPage;
+    const {
+      persons,
+      selectedPerson,
+      modalShown,
+    } = this.props.mainPage;
     return (
-      <div>
+      <Wrapper>
         <Helmet>
           <title>Person List</title>
           <meta name="description" content="Person List" />
@@ -46,15 +51,16 @@ export class MainPage extends React.Component {
           selectPerson={this.props.selectPerson}
           showModal={this.props.showModal}
         />
-        {this.props.mainPage.modalShown && (
-          <Overlay>
+        {modalShown && (
+          <Overlay onClick={this.props.hideModal}>
             <PersonModal
-              person={this.props.mainPage.selectedPerson}
+              person={selectedPerson}
               hideModal={this.props.hideModal}
+              historyPush={this.props.history.push}
             />
           </Overlay>
         )}
-      </div>
+      </Wrapper>
     );
   }
 }
@@ -62,9 +68,21 @@ export class MainPage extends React.Component {
 MainPage.propTypes = {
   mainPage: PropTypes.shape({
     persons: PropTypes.array,
+    modalShown: PropTypes.bool,
+    selectedPerson: PropTypes.object,
   }),
   getPersons: PropTypes.func,
   selectPerson: PropTypes.func,
+  showModal: PropTypes.func,
+  hideModal: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      personId: PropTypes.string,
+    }),
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -87,9 +105,7 @@ const withConnect = connect(
 
 const withSaga = injectSaga({ key: 'mainPage', saga });
 
-export default withRouter(
-  compose(
-    withSaga,
-    withConnect,
-  )(MainPage),
-);
+export default compose(
+  withSaga,
+  withConnect,
+)(MainPage);

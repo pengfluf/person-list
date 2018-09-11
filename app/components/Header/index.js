@@ -6,10 +6,24 @@
 
 import React from 'react';
 // import PropTypes from 'prop-types';
-// import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+import Logo from 'components/Logo';
+
+import Wrapper from './styled/Wrapper';
+import LogoH1 from './styled/LogoH1';
+import LogoLink from './styled/LogoLink';
 
 function Header() {
-  return <div>Pipedrive</div>;
+  return (
+    <Wrapper>
+      <LogoLink to="/">
+        <LogoH1>
+          <Logo />
+        </LogoH1>
+      </LogoLink>
+    </Wrapper>
+  );
 }
 
 Header.propTypes = {};

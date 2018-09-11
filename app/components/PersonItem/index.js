@@ -7,10 +7,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Avatar from 'components/Avatar';
+
 import Wrapper from './styled/Wrapper';
+import Name from './styled/Name';
+import Organization from './styled/Organization';
 
 function PersonItem({
   id,
+  index,
   name,
   orgName,
   pictureId,
@@ -21,26 +26,23 @@ function PersonItem({
     <Wrapper
       to={`/person/${id}`}
       onClick={() => {
-        selectPerson(id);
+        selectPerson(index);
         showModal();
       }}
-      style={{ marginTop: '20px' }}
     >
-      <p>{name}</p>
-      <p>{orgName}</p>
       <div>
-        {!pictureId &&
-          name
-            .split(' ')
-            .map(word => word[0])
-            .join('')}
+        <Name>{name}</Name>
+        <Organization>{orgName}</Organization>
       </div>
+
+      <Avatar pictureId={pictureId} name={name} />
     </Wrapper>
   );
 }
 
 PersonItem.propTypes = {
   id: PropTypes.number,
+  index: PropTypes.number,
   name: PropTypes.string,
   orgName: PropTypes.string,
   pictureId: PropTypes.number,
