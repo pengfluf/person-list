@@ -24,13 +24,27 @@ import {
   selectPerson,
   showModal,
   hideModal,
+  movePersonItem,
 } from './actions';
 
 import Wrapper from './styled/Wrapper';
 
 export class MainPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.movePersonItem = this.movePersonItem.bind(this);
+  }
+
   componentDidMount() {
     this.props.getPersons(0);
+  }
+
+  movePersonItem(dragIndex, hoverIndex) {
+    const { persons } = this.props.mainPage;
+    const person = persons[dragIndex];
+
+    this.props.movePersonItem(dragIndex, hoverIndex, person);
   }
 
   render() {
@@ -50,6 +64,7 @@ export class MainPage extends React.Component {
           persons={persons}
           selectPerson={this.props.selectPerson}
           showModal={this.props.showModal}
+          movePersonItem={this.movePersonItem}
         />
         {modalShown && (
           <Overlay onClick={this.props.hideModal}>
@@ -75,6 +90,7 @@ MainPage.propTypes = {
   selectPerson: PropTypes.func,
   showModal: PropTypes.func,
   hideModal: PropTypes.func,
+  movePersonItem: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
@@ -95,6 +111,8 @@ function mapDispatchToProps(dispatch) {
     selectPerson: index => dispatch(selectPerson(index)),
     showModal: () => dispatch(showModal()),
     hideModal: () => dispatch(hideModal()),
+    movePersonItem: (dragIndex, hoverIndex, person) =>
+      dispatch(movePersonItem(dragIndex, hoverIndex, person)),
   };
 }
 

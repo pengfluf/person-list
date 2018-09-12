@@ -13,6 +13,7 @@ import {
   SHOW_MODAL,
   HIDE_MODAL,
   SELECT_PERSON,
+  MOVE_PERSON_ITEM,
 } from './constants';
 
 export function startFetching() {
@@ -64,5 +65,14 @@ export function selectPerson(index) {
   return {
     type: SELECT_PERSON,
     index,
+  };
+}
+
+export function movePersonItem(dragIndex, hoverIndex, person) {
+  return {
+    type: MOVE_PERSON_ITEM,
+    dragIndex,
+    hoverIndex,
+    person,
   };
 }

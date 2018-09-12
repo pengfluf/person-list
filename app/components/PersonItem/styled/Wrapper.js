@@ -12,6 +12,7 @@ const Wrapper = styled(Link)`
   border-radius: 5px;
   align-items: center;
   padding: 10px 25px;
+  outline: none;
 
   &:first-of-type {
     margin-top: 15px;

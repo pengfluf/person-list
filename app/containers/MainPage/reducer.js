@@ -14,6 +14,7 @@ import {
   SHOW_MODAL,
   HIDE_MODAL,
   SELECT_PERSON,
+  MOVE_PERSON_ITEM,
 } from './constants';
 
 export const initialState = fromJS({
@@ -42,6 +43,14 @@ function mainPageReducer(state = initialState, action) {
       return state.set(
         'selectedPerson',
         state.getIn(['persons', action.index]),
+      );
+    case MOVE_PERSON_ITEM:
+      return state.set(
+        'persons',
+        state
+          .get('persons')
+          .delete(action.dragIndex)
+          .insert(action.hoverIndex, action.person),
       );
     default:
       return state;
