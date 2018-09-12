@@ -15,6 +15,7 @@ import {
   HIDE_MODAL,
   SELECT_PERSON,
   MOVE_PERSON_ITEM,
+  UPDATE_PAGINATION,
 } from './constants';
 
 export const initialState = fromJS({
@@ -23,6 +24,7 @@ export const initialState = fromJS({
   fetching: false,
   error: null,
   modalShown: false,
+  pagination: {},
 });
 
 function mainPageReducer(state = initialState, action) {
@@ -52,6 +54,8 @@ function mainPageReducer(state = initialState, action) {
           .delete(action.dragIndex)
           .insert(action.hoverIndex, action.person),
       );
+    case UPDATE_PAGINATION:
+      return state.set('pagination', action.pagination);
     default:
       return state;
   }

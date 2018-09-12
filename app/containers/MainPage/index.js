@@ -12,6 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import PersonList from 'components/PersonList';
+import Pagination from 'components/Pagination';
 import PersonModal from 'components/PersonModal';
 import Overlay from 'components/Overlay';
 
@@ -52,6 +53,7 @@ export class MainPage extends React.Component {
       persons,
       selectedPerson,
       modalShown,
+      pagination,
     } = this.props.mainPage;
     return (
       <Wrapper>
@@ -59,6 +61,10 @@ export class MainPage extends React.Component {
           <title>Person List</title>
           <meta name="description" content="Person List" />
         </Helmet>
+        <Pagination
+          pagination={pagination}
+          getPersons={this.props.getPersons}
+        />
         <PersonList
           personId={this.props.match.params.personId}
           persons={persons}
@@ -66,6 +72,7 @@ export class MainPage extends React.Component {
           showModal={this.props.showModal}
           movePersonItem={this.movePersonItem}
         />
+
         {modalShown && (
           <Overlay onClick={this.props.hideModal}>
             <PersonModal
@@ -85,6 +92,7 @@ MainPage.propTypes = {
     persons: PropTypes.array,
     modalShown: PropTypes.bool,
     selectedPerson: PropTypes.object,
+    pagination: PropTypes.object,
   }),
   getPersons: PropTypes.func,
   selectPerson: PropTypes.func,
@@ -107,7 +115,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPersons: page => dispatch(getPersons(page)),
+    getPersons: startIndex => dispatch(getPersons(startIndex)),
     selectPerson: index => dispatch(selectPerson(index)),
     showModal: () => dispatch(showModal()),
     hideModal: () => dispatch(hideModal()),

@@ -8,6 +8,7 @@ import {
   stopFetching,
   receivePersons,
   receiveError,
+  updatePagination,
 } from './actions';
 
 export function* fetchPersons(action) {
@@ -16,10 +17,13 @@ export function* fetchPersons(action) {
     const persons = yield call(
       axios.get,
       `${BASE_URL}/persons?api_token=${API_KEY}&start=${
-        action.page
+        action.startIndex
       }&limit=10`,
     );
     yield put(stopFetching());
+    yield put(
+      updatePagination(persons.data.additional_data.pagination),
+    );
     yield put(receivePersons(persons.data.data));
   } catch (error) {
     yield put(stopFetching());

@@ -14,6 +14,7 @@ import {
   HIDE_MODAL,
   SELECT_PERSON,
   MOVE_PERSON_ITEM,
+  UPDATE_PAGINATION,
 } from './constants';
 
 export function startFetching() {
@@ -35,10 +36,10 @@ export function receiveError(error) {
   };
 }
 
-export function getPersons(page) {
+export function getPersons(startIndex) {
   return {
     type: GET_PERSONS,
-    page,
+    startIndex,
   };
 }
 
@@ -74,5 +75,12 @@ export function movePersonItem(dragIndex, hoverIndex, person) {
     dragIndex,
     hoverIndex,
     person,
+  };
+}
+
+export function updatePagination(pagination) {
+  return {
+    type: UPDATE_PAGINATION,
+    pagination,
   };
 }
