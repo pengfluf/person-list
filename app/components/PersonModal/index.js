@@ -10,10 +10,19 @@ import PropTypes from 'prop-types';
 import getGroupName from 'helpers/getGroupName';
 
 import Avatar from 'components/Avatar';
+import Line from 'components/Line';
 
 import Wrapper from './styled/Wrapper';
 import Pane from './styled/Pane';
+import Title from './styled/Title';
 import Info from './styled/Info';
+import Name from './styled/Name';
+import Phone from './styled/Phone';
+import Stats from './styled/Stats';
+import StatCategory from './styled/StatCategory';
+import StatValue from './styled/StatValue';
+import Close from './styled/Close';
+import Back from './styled/Back';
 
 function PersonModal({ person, hideModal, historyPush }) {
   const {
@@ -28,36 +37,47 @@ function PersonModal({ person, hideModal, historyPush }) {
   return (
     <Wrapper>
       <Pane position="top">
-        <h2>Person Information</h2>
-        <button
+        <Title>Person Information</Title>
+        <Close
           onClick={() => {
             hideModal();
             historyPush('/');
           }}
-        >
-          [x]
-        </button>
+        />
       </Pane>
 
       <Info>
         <Avatar size={80} pirctureId={pictureId} name={name} />
-        <p>{name}</p>
-        <p>{phone[0].value}</p>
-        <p>Email: {email[0].value}</p>
-        <p>Organization: {orgId.name}</p>
-        <p>Groups: {getGroupName(groups)}</p>
-        <p>Location: {location}</p>
+        <Name>{name}</Name>
+        <Phone>{phone[0].value}</Phone>
+
+        <Line context="PersonModal" />
+
+        <Stats>
+          <div>
+            <StatCategory>Email:</StatCategory>
+            <StatCategory>Organization:</StatCategory>
+            <StatCategory>Groups:</StatCategory>
+            <StatCategory>Location:</StatCategory>
+          </div>
+          <div>
+            <StatValue>{email[0].value}</StatValue>
+            <StatValue>{orgId.name}</StatValue>
+            <StatValue>{getGroupName(groups)}</StatValue>
+            <StatValue>{location}</StatValue>
+          </div>
+        </Stats>
       </Info>
 
       <Pane position="bottom">
-        <button
+        <Back
           onClick={() => {
             hideModal();
             historyPush('/');
           }}
         >
           Back
-        </button>
+        </Back>
       </Pane>
     </Wrapper>
   );

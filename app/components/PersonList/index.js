@@ -10,10 +10,10 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 
 import PersonItem from 'components/PersonItem';
+import Line from 'components/Line';
 
 import Wrapper from './styled/Wrapper';
 import Title from './styled/Title';
-import Line from './styled/Line';
 
 function PersonList({
   persons,
@@ -24,7 +24,7 @@ function PersonList({
   return (
     <Wrapper>
       <Title>People{"'"}s List</Title>
-      <Line />
+      <Line context="PersonList" />
       {persons.map(
         (
           { id, name, org_name: orgName, picture_id: pictureId },
