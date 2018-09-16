@@ -8,12 +8,12 @@ import PropTypes from 'prop-types';
 
 import OverlayWrapper from './styled/OverlayWrapper';
 
-export function Overlay({ hideModal, historyPush, children }) {
+export function Overlay({ toggleModal, historyPush, children }) {
   return (
     <OverlayWrapper
       onClick={e => {
         if (e.target.className.includes('OverlayWrapper')) {
-          hideModal();
+          toggleModal();
           historyPush('/');
         }
       }}
@@ -24,7 +24,7 @@ export function Overlay({ hideModal, historyPush, children }) {
 }
 
 Overlay.propTypes = {
-  hideModal: PropTypes.func,
+  toggleModal: PropTypes.func,
   historyPush: PropTypes.func,
   children: PropTypes.object,
 };

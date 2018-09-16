@@ -11,6 +11,7 @@ import { DragDropContext } from 'react-dnd';
 
 import Pagination from 'components/Pagination';
 import SearchFilter from 'components/SearchFilter';
+import AddPerson from 'components/AddPerson';
 import PersonItem from 'components/PersonItem';
 import Line from 'components/Line';
 
@@ -20,7 +21,8 @@ import Title from './styled/Title';
 function PersonList({
   persons,
   selectPerson,
-  showModal,
+  toggleInfoModal,
+  toggleAddModal,
   movePersonItem,
   pagination,
   getPersons,
@@ -28,15 +30,20 @@ function PersonList({
   updateSearchFilter,
 }) {
   /* eslint-disable prettier/prettier */
+  // Specifying the filters.
   const filterValues = ['name', 'org_name'];
   return (
     <Wrapper>
       <Title>People{"'"}s List</Title>
       <Pagination pagination={pagination} getPersons={getPersons} />
+      <h3>Search locally:</h3>
       <SearchFilter
         searchFilter={searchFilter}
         updateSearchFilter={updateSearchFilter}
       />
+      <div style={{marginTop: '50px'}}>
+        <button onClick={toggleAddModal}>Add new person...</button>
+      </div>
       <Line context="PersonList" />
       {persons
         .filter(person =>
@@ -64,7 +71,7 @@ function PersonList({
               orgName={orgName}
               pictureId={pictureId}
               selectPerson={selectPerson}
-              showModal={showModal}
+              toggleModal={toggleInfoModal}
               movePersonItem={movePersonItem}
             />
           ),
@@ -76,7 +83,8 @@ function PersonList({
 PersonList.propTypes = {
   persons: PropTypes.array,
   selectPerson: PropTypes.func,
-  showModal: PropTypes.func,
+  toggleInfoModal: PropTypes.func,
+  toggleAddModal: PropTypes.func,
   movePersonItem: PropTypes.func,
   pagination: PropTypes.object,
   getPersons: PropTypes.func,

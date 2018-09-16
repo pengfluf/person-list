@@ -24,7 +24,7 @@ import StatValue from './styled/StatValue';
 import Close from './styled/Close';
 import Back from './styled/Back';
 
-function PersonModal({ person, hideModal, historyPush }) {
+function PersonModal({ person, toggleModal, historyPush }) {
   const {
     name,
     picture_id: pictureId,
@@ -40,7 +40,7 @@ function PersonModal({ person, hideModal, historyPush }) {
         <Title>Person Information</Title>
         <Close
           onClick={() => {
-            hideModal();
+            toggleModal();
             historyPush('/');
           }}
         />
@@ -62,8 +62,8 @@ function PersonModal({ person, hideModal, historyPush }) {
           </div>
           <div>
             <StatValue>{email[0].value}</StatValue>
-            <StatValue>{orgId.name}</StatValue>
-            <StatValue>{getGroupName(groups)}</StatValue>
+            <StatValue>{orgId && orgId.name}</StatValue>
+            <StatValue>{groups && getGroupName(groups)}</StatValue>
             <StatValue>{location}</StatValue>
           </div>
         </Stats>
@@ -72,7 +72,7 @@ function PersonModal({ person, hideModal, historyPush }) {
       <Pane position="bottom">
         <Back
           onClick={() => {
-            hideModal();
+            toggleModal();
             historyPush('/');
           }}
         >
@@ -94,7 +94,7 @@ PersonModal.propTypes = {
     groups: PropTypes.number,
     location: PropTypes.string,
   }),
-  hideModal: PropTypes.func,
+  toggleModal: PropTypes.func,
   historyPush: PropTypes.func,
 };
 

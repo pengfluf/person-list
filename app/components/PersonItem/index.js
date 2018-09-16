@@ -86,7 +86,7 @@ function PersonItem({
   orgName,
   pictureId,
   selectPerson,
-  showModal,
+  toggleModal,
 }) {
   return (
     connectDragSource &&
@@ -98,7 +98,7 @@ function PersonItem({
             to={`/person/${id}`}
             onClick={() => {
               selectPerson(index);
-              showModal();
+              toggleModal();
             }}
           >
             <div>
@@ -121,7 +121,7 @@ PersonItem.propTypes = {
   orgName: PropTypes.string,
   pictureId: PropTypes.number,
   selectPerson: PropTypes.func,
-  showModal: PropTypes.func,
+  toggleModal: PropTypes.func,
 };
 
 export default flow(

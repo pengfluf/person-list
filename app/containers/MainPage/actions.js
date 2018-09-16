@@ -9,14 +9,22 @@ import {
   STOP_FETCHING,
   RECEIVE_ERROR,
   GET_PERSONS,
+  ADD_PERSON,
+  DELETE_PERSON,
+  SEARCH,
   RECEIVE_PERSONS,
-  SHOW_MODAL,
-  HIDE_MODAL,
+  RECEIVE_NEW_PERSON,
+  DELETE_PERSON_LOCALLY,
+  TOGGLE_INFO_MODAL,
+  TOGGLE_ADD_MODAL,
   SELECT_PERSON,
   MOVE_PERSON_ITEM,
   UPDATE_PAGINATION,
   UPDATE_SEARCH_FILTER,
+  UPDATE_NAME,
 } from './constants';
+
+/* BASIC FETCHING */
 
 export function startFetching() {
   return {
@@ -37,12 +45,37 @@ export function receiveError(error) {
   };
 }
 
+/* REMOTE CHANGES */
+
 export function getPersons(startIndex) {
   return {
     type: GET_PERSONS,
     startIndex,
   };
 }
+
+export function addPerson(info) {
+  return {
+    type: ADD_PERSON,
+    info,
+  };
+}
+
+export function deletePerson(id) {
+  return {
+    type: DELETE_PERSON,
+    id,
+  };
+}
+
+export function search(query) {
+  return {
+    type: SEARCH,
+    query,
+  };
+}
+
+/* LOCAL CHANGES */
 
 export function receivePersons(persons) {
   return {
@@ -51,15 +84,31 @@ export function receivePersons(persons) {
   };
 }
 
-export function showModal() {
+export function receiveNewPerson(person) {
   return {
-    type: SHOW_MODAL,
+    type: RECEIVE_NEW_PERSON,
+    person,
   };
 }
 
-export function hideModal() {
+export function deletePersonLocally(index) {
   return {
-    type: HIDE_MODAL,
+    type: DELETE_PERSON_LOCALLY,
+    index,
+  };
+}
+
+/* INTERFACE SPECIFIC AND OTHER CHANGES */
+
+export function toggleInfoModal() {
+  return {
+    type: TOGGLE_INFO_MODAL,
+  };
+}
+
+export function toggleAddModal() {
+  return {
+    type: TOGGLE_ADD_MODAL,
   };
 }
 
@@ -90,5 +139,12 @@ export function updateSearchFilter(query) {
   return {
     type: UPDATE_SEARCH_FILTER,
     query,
+  };
+}
+
+export function updateName(name) {
+  return {
+    type: UPDATE_NAME,
+    name,
   };
 }
