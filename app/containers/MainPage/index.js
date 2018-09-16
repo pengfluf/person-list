@@ -11,8 +11,8 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import Header from 'components/Header';
 import PersonList from 'components/PersonList';
-import Pagination from 'components/Pagination';
 import PersonModal from 'components/PersonModal';
 import Overlay from 'components/Overlay';
 
@@ -26,6 +26,7 @@ import {
   showModal,
   hideModal,
   movePersonItem,
+  updateSearchFilter,
 } from './actions';
 
 import Wrapper from './styled/Wrapper';
@@ -54,6 +55,7 @@ export class MainPage extends React.Component {
       selectedPerson,
       modalShown,
       pagination,
+      searchFilter,
     } = this.props.mainPage;
     return (
       <Wrapper>
@@ -61,20 +63,28 @@ export class MainPage extends React.Component {
           <title>Person List</title>
           <meta name="description" content="Person List" />
         </Helmet>
-        <Pagination
-          pagination={pagination}
+        <Header
           getPersons={this.props.getPersons}
+          historyPush={this.props.history.push}
+          paginationStart={pagination.start}
         />
         <PersonList
-          personId={this.props.match.params.personId}
           persons={persons}
+          personId={this.props.match.params.personId}
+          pagination={pagination}
           selectPerson={this.props.selectPerson}
           showModal={this.props.showModal}
           movePersonItem={this.movePersonItem}
+          getPersons={this.props.getPersons}
+          searchFilter={searchFilter}
+          updateSearchFilter={this.props.updateSearchFilter}
         />
 
         {modalShown && (
-          <Overlay onClick={this.props.hideModal}>
+          <Overlay
+            hideModal={this.props.hideModal}
+            historyPush={this.props.history.push}
+          >
             <PersonModal
               person={selectedPerson}
               hideModal={this.props.hideModal}
@@ -93,12 +103,14 @@ MainPage.propTypes = {
     modalShown: PropTypes.bool,
     selectedPerson: PropTypes.object,
     pagination: PropTypes.object,
+    searchFilter: PropTypes.string,
   }),
   getPersons: PropTypes.func,
   selectPerson: PropTypes.func,
   showModal: PropTypes.func,
   hideModal: PropTypes.func,
   movePersonItem: PropTypes.func,
+  updateSearchFilter: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
@@ -121,6 +133,7 @@ function mapDispatchToProps(dispatch) {
     hideModal: () => dispatch(hideModal()),
     movePersonItem: (dragIndex, hoverIndex, person) =>
       dispatch(movePersonItem(dragIndex, hoverIndex, person)),
+    updateSearchFilter: query => dispatch(updateSearchFilter(query)),
   };
 }
 

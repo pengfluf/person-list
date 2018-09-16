@@ -24,3 +24,5 @@ export const SELECT_PERSON = 'MainPage/SELECT_PERSON';
 export const MOVE_PERSON_ITEM = 'MainPage/MOVE_PERSON_ITEM';
 
 export const UPDATE_PAGINATION = 'MainPage/UPDATE_PAGINATION';
+
+export const UPDATE_SEARCH_FILTER = 'MainPage/UPDATE_SEARCH_FILTER';

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
-const LogoLink = styled(Link)``;
+const LogoLink = styled.a`
+  cursor: pointer;
+`;
 
 export default LogoLink;

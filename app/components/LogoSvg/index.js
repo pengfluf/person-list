@@ -5,10 +5,8 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
 
-function Logo() {
+function LogoSvg() {
   return (
     <svg
       xmlns="https://www.w3.org/2000/svg"
@@ -68,6 +66,4 @@ function Logo() {
   );
 }
 
-Logo.propTypes = {};
-
-export default Logo;
+export default LogoSvg;

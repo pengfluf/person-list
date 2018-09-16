@@ -5,27 +5,37 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import Logo from 'components/Logo';
+import LogoSvg from 'components/LogoSvg';
 
 import Wrapper from './styled/Wrapper';
 import LogoH1 from './styled/LogoH1';
 import LogoLink from './styled/LogoLink';
 
-function Header() {
+function Header({ getPersons, paginationStart, historyPush }) {
   return (
     <Wrapper>
-      <LogoLink to="/">
+      <LogoLink
+        onClick={() => {
+          historyPush('/');
+          if (paginationStart > 0) {
+            getPersons(0);
+          }
+        }}
+      >
         <LogoH1>
-          <Logo />
+          <LogoSvg />
         </LogoH1>
       </LogoLink>
     </Wrapper>
   );
 }
 
-Header.propTypes = {};
+Header.propTypes = {
+  getPersons: PropTypes.func,
+  paginationStart: PropTypes.number,
+  historyPush: PropTypes.func,
+};
 
 export default Header;

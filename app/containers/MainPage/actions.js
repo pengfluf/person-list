@@ -15,6 +15,7 @@ import {
   SELECT_PERSON,
   MOVE_PERSON_ITEM,
   UPDATE_PAGINATION,
+  UPDATE_SEARCH_FILTER,
 } from './constants';
 
 export function startFetching() {
@@ -82,5 +83,12 @@ export function updatePagination(pagination) {
   return {
     type: UPDATE_PAGINATION,
     pagination,
+  };
+}
+
+export function updateSearchFilter(query) {
+  return {
+    type: UPDATE_SEARCH_FILTER,
+    query,
   };
 }

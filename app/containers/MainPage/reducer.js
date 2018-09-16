@@ -16,6 +16,7 @@ import {
   SELECT_PERSON,
   MOVE_PERSON_ITEM,
   UPDATE_PAGINATION,
+  UPDATE_SEARCH_FILTER,
 } from './constants';
 
 export const initialState = fromJS({
@@ -25,6 +26,7 @@ export const initialState = fromJS({
   error: null,
   modalShown: false,
   pagination: {},
+  searchFilter: '',
 });
 
 function mainPageReducer(state = initialState, action) {
@@ -56,6 +58,8 @@ function mainPageReducer(state = initialState, action) {
       );
     case UPDATE_PAGINATION:
       return state.set('pagination', action.pagination);
+    case UPDATE_SEARCH_FILTER:
+      return state.set('searchFilter', action.query);
     default:
       return state;
   }
