@@ -14,7 +14,7 @@ export const RECEIVE_ERROR = 'MainPage/RECEIVE_ERROR';
 export const GET_PERSONS = 'MainPage/GET_PERSONS';
 export const ADD_PERSON = 'MainPage/ADD_PERSON';
 export const DELETE_PERSON = 'MainPage/DELETE_PERSON';
-export const SEARCH = 'MainPage/SEARCH';
+export const SEARCH_PERSON = 'MainPage/SEARCH_PERSON';
 
 export const RECEIVE_PERSONS = 'MainPage/RECEIVE_PERSONS';
 export const RECEIVE_NEW_PERSON = 'MainPage/RECEIVE_NEW_PERSON';

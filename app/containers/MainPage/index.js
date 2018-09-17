@@ -13,8 +13,7 @@ import { compose } from 'redux';
 
 import Header from 'components/Header';
 import PersonList from 'components/PersonList';
-import PersonModal from 'components/PersonModal';
-import Overlay from 'components/Overlay';
+import PersonInfo from 'components/PersonInfo';
 import AddPerson from 'components/AddPerson';
 
 import injectSaga from 'utils/injectSaga';
@@ -30,6 +29,7 @@ import {
   updateSearchFilter,
   addPerson,
   deletePerson,
+  searchPerson,
   updateName,
 } from './actions';
 
@@ -40,7 +40,8 @@ export class MainPage extends React.Component {
     super(props);
 
     this.movePersonItem = this.movePersonItem.bind(this);
-    this.search = this.search.bind(this);
+    this.searchPerson = this.searchPerson.bind(this);
+    this.deletePerson = this.deletePerson.bind(this);
   }
 
   componentDidMount() {
@@ -54,7 +55,30 @@ export class MainPage extends React.Component {
     this.props.movePersonItem(dragIndex, hoverIndex, person);
   }
 
-  search() {}
+  searchPerson() {
+    const { searchFilter } = this.props.mainPage;
+    if (searchFilter.length > 1) {
+      this.props.updateSearchFilter('');
+      this.props.searchPerson(searchFilter);
+    } else {
+      alert('Search query cannot be less than 2 characters.');
+    }
+  }
+
+  deletePerson(id) {
+    const answer = confirm(
+      'Are you sure that you want to delete this person?',
+    );
+    if (answer) {
+      const index = this.props.mainPage.persons.findIndex(
+        person => person.id === id,
+      );
+
+      if (index !== -1) {
+        this.props.deletePerson(id, index);
+      }
+    }
+  }
 
   render() {
     const {
@@ -90,33 +114,26 @@ export class MainPage extends React.Component {
           getPersons={this.props.getPersons}
           searchFilter={searchFilter}
           updateSearchFilter={this.props.updateSearchFilter}
+          searchPerson={this.searchPerson}
+          deletePerson={this.deletePerson}
         />
 
         {modals.info && (
-          <Overlay
+          <PersonInfo
+            person={selectedPerson}
             toggleModal={this.props.toggleInfoModal}
             historyPush={this.props.history.push}
-          >
-            <PersonModal
-              person={selectedPerson}
-              toggleModal={this.props.toggleInfoModal}
-              historyPush={this.props.history.push}
-            />
-          </Overlay>
+          />
         )}
 
         {modals.add && (
-          <Overlay
+          <AddPerson
+            name={name}
+            addPerson={this.props.addPerson}
             toggleModal={this.props.toggleAddModal}
             historyPush={this.props.history.push}
-          >
-            <AddPerson
-              name={name}
-              addPerson={this.props.addPerson}
-              toggleModal={this.props.toggleAddModal}
-              updateName={this.props.updateName}
-            />
-          </Overlay>
+            updateName={this.props.updateName}
+          />
         )}
       </Wrapper>
     );
@@ -125,6 +142,8 @@ export class MainPage extends React.Component {
 
 MainPage.propTypes = {
   mainPage: PropTypes.shape({
+    fetching: PropTypes.bool,
+    name: PropTypes.string,
     persons: PropTypes.array,
     selectedPerson: PropTypes.object,
     pagination: PropTypes.object,
@@ -138,6 +157,12 @@ MainPage.propTypes = {
   selectPerson: PropTypes.func,
   movePersonItem: PropTypes.func,
   updateSearchFilter: PropTypes.func,
+  updateName: PropTypes.func,
+  addPerson: PropTypes.func,
+  toggleInfoModal: PropTypes.func,
+  toggleAddModal: PropTypes.func,
+  searchPerson: PropTypes.func,
+  deletePerson: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
@@ -162,7 +187,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(movePersonItem(dragIndex, hoverIndex, person)),
     updateSearchFilter: query => dispatch(updateSearchFilter(query)),
     addPerson: person => dispatch(addPerson(person)),
-    deletePerson: index => dispatch(deletePerson(index)),
+    deletePerson: id => dispatch(deletePerson(id)),
+    searchPerson: query => dispatch(searchPerson(query)),
     updateName: name => dispatch(updateName(name)),
   };
 }

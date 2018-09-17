@@ -1,6 +1,6 @@
 /**
  *
- * PersonModal
+ * PersonInfo
  *
  */
 
@@ -19,7 +19,7 @@ import Stats from './styled/Stats';
 import StatCategory from './styled/StatCategory';
 import StatValue from './styled/StatValue';
 
-function PersonModal({ person, toggleModal, historyPush }) {
+function PersonInfo({ person, toggleModal, historyPush }) {
   const {
     name,
     picture_id: pictureId,
@@ -31,6 +31,18 @@ function PersonModal({ person, toggleModal, historyPush }) {
   } = person;
 
   const missingStatMsg = 'Not specified';
+  const statCategories = [
+    'Email',
+    'Organization',
+    'Groups',
+    'Location',
+  ];
+  const statValues = [
+    email && email[0].value,
+    orgId && orgId.name,
+    groups && getGroupName(groups),
+    location,
+  ];
 
   return (
     <Modal
@@ -42,27 +54,28 @@ function PersonModal({ person, toggleModal, historyPush }) {
         <Avatar size={80} pirctureId={pictureId} name={name} />
         <Name>{name}</Name>
         <Phone>
-          {phone[0].value || "Phone number isn't specified"}
+          {(phone && phone[0].value) ||
+            "Phone number isn't specified"}
         </Phone>
 
-        <Line context="PersonModal" />
+        <Line context="PersonInfo" />
 
         <Stats>
           <div>
-            <StatCategory>Email:</StatCategory>
-            <StatCategory>Organization:</StatCategory>
-            <StatCategory>Groups:</StatCategory>
-            <StatCategory>Location:</StatCategory>
+            {statCategories.map(category => (
+              <StatCategory key={category}>{category}:</StatCategory>
+            ))}
           </div>
           <div>
-            <StatValue>{email[0].value || missingStatMsg}</StatValue>
-            <StatValue>
-              {(orgId && orgId.name) || missingStatMsg}
-            </StatValue>
-            <StatValue>
-              {(groups && getGroupName(groups)) || missingStatMsg}
-            </StatValue>
-            <StatValue>{location || missingStatMsg}</StatValue>
+            {/* eslint-disable react/no-array-index-key */}
+            {statValues.map((value, index) => (
+              <StatValue
+                key={value ? `${value.slice(0, 4)}${index}` : index}
+              >
+                {value || missingStatMsg}
+              </StatValue>
+            ))}
+            {/* eslint-enable */}
           </div>
         </Stats>
       </Fragment>
@@ -70,10 +83,10 @@ function PersonModal({ person, toggleModal, historyPush }) {
   );
 }
 
-PersonModal.propTypes = {
+PersonInfo.propTypes = {
   person: PropTypes.shape({
     name: PropTypes.string,
-    phone: PropTypes.array,
+    phone: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     email: PropTypes.array,
     org_id: PropTypes.shape({
       name: PropTypes.string,
@@ -85,4 +98,4 @@ PersonModal.propTypes = {
   historyPush: PropTypes.func,
 };
 
-export default PersonModal;
+export default PersonInfo;

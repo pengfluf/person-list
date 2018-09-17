@@ -11,7 +11,7 @@ import {
   GET_PERSONS,
   ADD_PERSON,
   DELETE_PERSON,
-  SEARCH,
+  SEARCH_PERSON,
   RECEIVE_PERSONS,
   RECEIVE_NEW_PERSON,
   DELETE_PERSON_LOCALLY,
@@ -68,9 +68,9 @@ export function deletePerson(id) {
   };
 }
 
-export function search(query) {
+export function searchPerson(query) {
   return {
-    type: SEARCH,
+    type: SEARCH_PERSON,
     query,
   };
 }

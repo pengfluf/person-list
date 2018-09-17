@@ -16,7 +16,7 @@ const Wrapper = styled.button`
   }
 
   &:first-of-type {
-    margin-left: 0;
+    margin-left: ${({ context }) => context !== 'PersonList' && 0};
   }
 `;
 

@@ -13,9 +13,19 @@ import Button from 'components/Button';
 import InputField from 'components/InputField';
 import Modal from 'components/Modal';
 
-function AddPerson({ name, addPerson, toggleModal, updateName }) {
+function AddPerson({
+  name,
+  addPerson,
+  toggleModal,
+  historyPush,
+  updateName,
+}) {
   return (
-    <Modal title="Add New Person">
+    <Modal
+      title="Add New Person"
+      toggleModal={toggleModal}
+      historyPush={historyPush}
+    >
       <Fragment>
         <InputField
           value={name}

@@ -87,6 +87,7 @@ function PersonItem({
   pictureId,
   selectPerson,
   toggleModal,
+  deletePerson,
 }) {
   return (
     connectDragSource &&
@@ -108,6 +109,7 @@ function PersonItem({
 
             <Avatar pictureId={pictureId} name={name} />
           </Wrapper>
+          <button onClick={() => deletePerson(id)}>Delete</button>
         </div>,
       ),
     )

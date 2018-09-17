@@ -7,6 +7,7 @@ import {
   GET_PERSONS,
   ADD_PERSON,
   DELETE_PERSON,
+  SEARCH_PERSON,
 } from './constants';
 
 import {
@@ -66,8 +67,49 @@ export function* removePerson(action) {
     );
     yield put(stopFetching());
     if (response.success) {
-      yield put(deletePersonLocally(action.id));
+      yield put(deletePersonLocally(action.index));
     }
+  } catch (error) {
+    yield put(stopFetching());
+    yield put(receiveError(error));
+  }
+}
+
+export function* findPerson(action) {
+  try {
+    yield put(startFetching());
+    const results = yield call(
+      axios.get,
+      `${BASE_URL}/searchResults?api_token=${API_KEY}&term=${
+        action.query
+      }&start=0`,
+    );
+    yield put(stopFetching());
+    yield put(
+      updatePagination(results.data.additional_data.pagination),
+    );
+    const normalized = results.data.data
+      .filter(({ type }) => type === 'person')
+      .map(({ id, title, details }) => ({
+        id,
+        name: title,
+        phone: [
+          {
+            value: details.phone,
+          },
+        ],
+        email: [
+          {
+            value: details.email,
+          },
+        ],
+        orgId: {
+          name: details.org_name,
+        },
+        groups: details.groups,
+        location: details.location,
+      }));
+    yield put(receivePersons(normalized));
   } catch (error) {
     yield put(stopFetching());
     yield put(receiveError(error));
@@ -79,5 +121,6 @@ export default function* watcher() {
     takeLatest(GET_PERSONS, fetchPersons),
     takeLatest(ADD_PERSON, createPerson),
     takeLatest(DELETE_PERSON, removePerson),
+    takeLatest(SEARCH_PERSON, findPerson),
   ];
 }

@@ -33,8 +33,9 @@ function PersonList({
   getPersons,
   searchFilter,
   updateSearchFilter,
+  searchPerson,
+  deletePerson,
 }) {
-  /* eslint-disable prettier/prettier */
   // Specifying the filters.
   const filterValues = ['name', 'org_name'];
   return (
@@ -42,33 +43,41 @@ function PersonList({
       <Title>People{"'"}s List</Title>
       <Controls>
         <ControlsLeft>
-          <Pagination pagination={pagination} getPersons={getPersons} />
+          <Pagination
+            pagination={pagination}
+            getPersons={getPersons}
+          />
         </ControlsLeft>
         <ControlsRight>
           <Button text="Add new person..." onClick={toggleAddModal} />
-          <SearchFilter
-            searchFilter={searchFilter}
-            updateSearchFilter={updateSearchFilter}
-          />
+          <div>
+            <SearchFilter
+              searchFilter={searchFilter}
+              updateSearchFilter={updateSearchFilter}
+              searchPerson={searchPerson}
+            />
+            <Button
+              onClick={searchPerson}
+              text="Search in database"
+              context="PersonList"
+            />
+          </div>
         </ControlsRight>
       </Controls>
       <Line context="PersonList" />
       {persons
         .filter(person =>
-          filterValues.some(value =>
-            person[value]
-              .toLowerCase()
-              .includes(searchFilter.toLowerCase()),
+          filterValues.some(
+            value =>
+              person[value] !== null &&
+              person[value]
+                .toLowerCase()
+                .includes(searchFilter.toLowerCase()),
           ),
         )
         .map(
           (
-            {
-              id,
-              name,
-              org_name: orgName,
-              picture_id: pictureId,
-            },
+            { id, name, org_name: orgName, picture_id: pictureId },
             index,
           ) => (
             <PersonItem
@@ -81,16 +90,18 @@ function PersonList({
               selectPerson={selectPerson}
               toggleModal={toggleInfoModal}
               movePersonItem={movePersonItem}
+              deletePerson={deletePerson}
             />
           ),
         )}
 
-      {fetching && <Loading></Loading>}
+      {fetching && <Loading />}
     </Wrapper>
   );
 }
 
 PersonList.propTypes = {
+  fetching: PropTypes.bool,
   persons: PropTypes.array,
   selectPerson: PropTypes.func,
   toggleInfoModal: PropTypes.func,
@@ -100,6 +111,7 @@ PersonList.propTypes = {
   getPersons: PropTypes.func,
   searchFilter: PropTypes.string,
   updateSearchFilter: PropTypes.func,
+  searchPerson: PropTypes.func,
 };
 
 export default DragDropContext(HTML5Backend)(PersonList);
