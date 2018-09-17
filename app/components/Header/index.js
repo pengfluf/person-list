@@ -13,15 +13,13 @@ import Wrapper from './styled/Wrapper';
 import LogoH1 from './styled/LogoH1';
 import LogoLink from './styled/LogoLink';
 
-function Header({ getPersons, paginationStart, historyPush }) {
+function Header({ getPersons, historyPush }) {
   return (
     <Wrapper>
       <LogoLink
         onClick={() => {
           historyPush('/');
-          if (paginationStart > 0) {
-            getPersons(0);
-          }
+          getPersons(0);
         }}
       >
         <LogoH1>

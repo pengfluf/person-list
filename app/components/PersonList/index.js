@@ -34,7 +34,6 @@ function PersonList({
   searchFilter,
   updateSearchFilter,
   searchPerson,
-  deletePerson,
 }) {
   // Specifying the filters.
   const filterValues = ['name', 'org_name'];
@@ -90,7 +89,6 @@ function PersonList({
               selectPerson={selectPerson}
               toggleModal={toggleInfoModal}
               movePersonItem={movePersonItem}
-              deletePerson={deletePerson}
             />
           ),
         )}

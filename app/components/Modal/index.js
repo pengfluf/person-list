@@ -15,7 +15,14 @@ import Title from './styled/Title';
 import Close from './styled/Close';
 import Info from './styled/Info';
 
-export function Modal({ title, toggleModal, historyPush, children }) {
+export function Modal({
+  title,
+  toggleModal,
+  historyPush,
+  deletePerson,
+  personId,
+  children,
+}) {
   return (
     <Overlay toggleModal={toggleModal} historyPush={historyPush}>
       <Wrapper>
@@ -30,6 +37,17 @@ export function Modal({ title, toggleModal, historyPush, children }) {
         </Pane>
         <Info>{...children}</Info>
         <Pane position="bottom">
+          {deletePerson && (
+            <Button
+              text="Delete Person"
+              type="delete"
+              onClick={() => {
+                toggleModal();
+                historyPush('/');
+                deletePerson(personId);
+              }}
+            />
+          )}
           <Button
             text="Back"
             onClick={() => {
@@ -47,6 +65,7 @@ Modal.propTypes = {
   title: PropTypes.string,
   toggleModal: PropTypes.func,
   historyPush: PropTypes.func,
+  deletePerson: PropTypes.func,
   children: PropTypes.object,
 };
 

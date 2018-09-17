@@ -66,7 +66,7 @@ export function* removePerson(action) {
       `${BASE_URL}/persons/${action.id}?api_token=${API_KEY}`,
     );
     yield put(stopFetching());
-    if (response.success) {
+    if (response.data.success) {
       yield put(deletePersonLocally(action.index));
     }
   } catch (error) {

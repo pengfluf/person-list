@@ -9,9 +9,9 @@ import PropTypes from 'prop-types';
 
 import Wrapper from './styled/Wrapper';
 
-function Button({ onClick, text, context }) {
+function Button({ onClick, text, context, type }) {
   return (
-    <Wrapper context={context} onClick={onClick}>
+    <Wrapper context={context} onClick={onClick} type={type}>
       {text}
     </Wrapper>
   );

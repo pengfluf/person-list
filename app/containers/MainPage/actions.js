@@ -61,10 +61,11 @@ export function addPerson(info) {
   };
 }
 
-export function deletePerson(id) {
+export function deletePerson(id, index) {
   return {
     type: DELETE_PERSON,
     id,
+    index,
   };
 }
 

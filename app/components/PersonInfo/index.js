@@ -19,7 +19,12 @@ import Stats from './styled/Stats';
 import StatCategory from './styled/StatCategory';
 import StatValue from './styled/StatValue';
 
-function PersonInfo({ person, toggleModal, historyPush }) {
+function PersonInfo({
+  person,
+  toggleModal,
+  historyPush,
+  deletePerson,
+}) {
   const {
     name,
     picture_id: pictureId,
@@ -49,6 +54,9 @@ function PersonInfo({ person, toggleModal, historyPush }) {
       title="Person Information"
       toggleModal={toggleModal}
       historyPush={historyPush}
+      context="PersonInfo"
+      deletePerson={deletePerson}
+      personId={person.id}
     >
       <Fragment>
         <Avatar size={80} pirctureId={pictureId} name={name} />

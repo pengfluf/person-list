@@ -100,7 +100,6 @@ export class MainPage extends React.Component {
         <Header
           getPersons={this.props.getPersons}
           historyPush={this.props.history.push}
-          paginationStart={pagination.start}
         />
         <PersonList
           fetching={fetching}
@@ -115,7 +114,6 @@ export class MainPage extends React.Component {
           searchFilter={searchFilter}
           updateSearchFilter={this.props.updateSearchFilter}
           searchPerson={this.searchPerson}
-          deletePerson={this.deletePerson}
         />
 
         {modals.info && (
@@ -123,6 +121,7 @@ export class MainPage extends React.Component {
             person={selectedPerson}
             toggleModal={this.props.toggleInfoModal}
             historyPush={this.props.history.push}
+            deletePerson={this.deletePerson}
           />
         )}
 
@@ -187,7 +186,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(movePersonItem(dragIndex, hoverIndex, person)),
     updateSearchFilter: query => dispatch(updateSearchFilter(query)),
     addPerson: person => dispatch(addPerson(person)),
-    deletePerson: id => dispatch(deletePerson(id)),
+    deletePerson: (id, index) => dispatch(deletePerson(id, index)),
     searchPerson: query => dispatch(searchPerson(query)),
     updateName: name => dispatch(updateName(name)),
   };
