@@ -4,39 +4,45 @@
  *
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import capitalize from 'helpers/capitalize';
 
+import Button from 'components/Button';
+import InputField from 'components/InputField';
+import Modal from 'components/Modal';
+
 function AddPerson({ name, addPerson, toggleModal, updateName }) {
   return (
-    <div>
-      <h3>Add person</h3>
-      <input
-        value={name}
-        type="text"
-        placeholder="Name"
-        onChange={e => updateName(e.target.value)}
-      />
-      <button
-        onClick={() => {
-          if (name.length > 1) {
-            addPerson({
-              name: name
-                .split(' ')
-                .map(word => capitalize(word))
-                .join(' '),
-            });
-            toggleModal();
-          } else {
-            alert('Name must have at least 2 characters.');
-          }
-        }}
-      >
-        Add
-      </button>
-    </div>
+    <Modal title="Add New Person">
+      <Fragment>
+        <InputField
+          value={name}
+          type="text"
+          placeholder="Name"
+          onChange={e => updateName(e.target.value)}
+        />
+        <Button
+          text="Add"
+          context="AddPerson"
+          onClick={() => {
+            if (name.length > 1) {
+              addPerson({
+                name: name
+                  .split(' ')
+                  .map(word => capitalize(word))
+                  .join(' '),
+              });
+              toggleModal();
+              updateName('');
+            } else {
+              alert('Name must have at least 2 characters.');
+            }
+          }}
+        />
+      </Fragment>
+    </Modal>
   );
 }
 

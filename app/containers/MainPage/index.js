@@ -58,6 +58,7 @@ export class MainPage extends React.Component {
 
   render() {
     const {
+      fetching,
       persons,
       selectedPerson,
       pagination,
@@ -78,6 +79,7 @@ export class MainPage extends React.Component {
           paginationStart={pagination.start}
         />
         <PersonList
+          fetching={fetching}
           persons={persons}
           personId={this.props.match.params.personId}
           pagination={pagination}

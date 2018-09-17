@@ -4,25 +4,20 @@
  *
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import getGroupName from 'helpers/getGroupName';
 
 import Avatar from 'components/Avatar';
 import Line from 'components/Line';
+import Modal from 'components/Modal';
 
-import Wrapper from './styled/Wrapper';
-import Pane from './styled/Pane';
-import Title from './styled/Title';
-import Info from './styled/Info';
 import Name from './styled/Name';
 import Phone from './styled/Phone';
 import Stats from './styled/Stats';
 import StatCategory from './styled/StatCategory';
 import StatValue from './styled/StatValue';
-import Close from './styled/Close';
-import Back from './styled/Back';
 
 function PersonModal({ person, toggleModal, historyPush }) {
   const {
@@ -34,22 +29,21 @@ function PersonModal({ person, toggleModal, historyPush }) {
     f552b684eef72ff3610c41a6a0ecceab66f9feb7: groups,
     '2b1bf3af9318071c1782df548748170642ec799a': location,
   } = person;
-  return (
-    <Wrapper>
-      <Pane position="top">
-        <Title>Person Information</Title>
-        <Close
-          onClick={() => {
-            toggleModal();
-            historyPush('/');
-          }}
-        />
-      </Pane>
 
-      <Info>
+  const missingStatMsg = 'Not specified';
+
+  return (
+    <Modal
+      title="Person Information"
+      toggleModal={toggleModal}
+      historyPush={historyPush}
+    >
+      <Fragment>
         <Avatar size={80} pirctureId={pictureId} name={name} />
         <Name>{name}</Name>
-        <Phone>{phone[0].value}</Phone>
+        <Phone>
+          {phone[0].value || "Phone number isn't specified"}
+        </Phone>
 
         <Line context="PersonModal" />
 
@@ -61,25 +55,18 @@ function PersonModal({ person, toggleModal, historyPush }) {
             <StatCategory>Location:</StatCategory>
           </div>
           <div>
-            <StatValue>{email[0].value}</StatValue>
-            <StatValue>{orgId && orgId.name}</StatValue>
-            <StatValue>{groups && getGroupName(groups)}</StatValue>
-            <StatValue>{location}</StatValue>
+            <StatValue>{email[0].value || missingStatMsg}</StatValue>
+            <StatValue>
+              {(orgId && orgId.name) || missingStatMsg}
+            </StatValue>
+            <StatValue>
+              {(groups && getGroupName(groups)) || missingStatMsg}
+            </StatValue>
+            <StatValue>{location || missingStatMsg}</StatValue>
           </div>
         </Stats>
-      </Info>
-
-      <Pane position="bottom">
-        <Back
-          onClick={() => {
-            toggleModal();
-            historyPush('/');
-          }}
-        >
-          Back
-        </Back>
-      </Pane>
-    </Wrapper>
+      </Fragment>
+    </Modal>
   );
 }
 

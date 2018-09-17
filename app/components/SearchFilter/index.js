@@ -7,13 +7,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import InputField from 'components/InputField';
+
 function SearchFilter({ searchFilter, updateSearchFilter }) {
   return (
-    <input
+    <InputField
       type="text"
       value={searchFilter}
       onChange={e => updateSearchFilter(e.target.value)}
-      placeholder="Search by filter"
+      placeholder="Search in the current list"
     />
   );
 }

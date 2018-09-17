@@ -7,6 +7,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Button from 'components/Button';
+
 function Pagination(props) {
   const {
     start,
@@ -17,14 +19,16 @@ function Pagination(props) {
   return (
     <div>
       {start > 0 && (
-        <button onClick={() => props.getPersons(start - limit)}>
-          Back
-        </button>
+        <Button
+          text="Back"
+          onClick={() => props.getPersons(start - limit)}
+        />
       )}
       {moreItems && (
-        <button onClick={() => props.getPersons(nextStart)}>
-          Next
-        </button>
+        <Button
+          text="Next"
+          onClick={() => props.getPersons(nextStart)}
+        />
       )}
     </div>
   );

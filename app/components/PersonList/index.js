@@ -11,14 +11,19 @@ import { DragDropContext } from 'react-dnd';
 
 import Pagination from 'components/Pagination';
 import SearchFilter from 'components/SearchFilter';
-import AddPerson from 'components/AddPerson';
 import PersonItem from 'components/PersonItem';
 import Line from 'components/Line';
+import Button from 'components/Button';
+import Loading from 'components/Loading';
 
 import Wrapper from './styled/Wrapper';
 import Title from './styled/Title';
+import Controls from './styled/Controls';
+import ControlsLeft from './styled/ControlsLeft';
+import ControlsRight from './styled/ControlsRight';
 
 function PersonList({
+  fetching,
   persons,
   selectPerson,
   toggleInfoModal,
@@ -35,15 +40,18 @@ function PersonList({
   return (
     <Wrapper>
       <Title>People{"'"}s List</Title>
-      <Pagination pagination={pagination} getPersons={getPersons} />
-      <h3>Search locally:</h3>
-      <SearchFilter
-        searchFilter={searchFilter}
-        updateSearchFilter={updateSearchFilter}
-      />
-      <div style={{marginTop: '50px'}}>
-        <button onClick={toggleAddModal}>Add new person...</button>
-      </div>
+      <Controls>
+        <ControlsLeft>
+          <Pagination pagination={pagination} getPersons={getPersons} />
+        </ControlsLeft>
+        <ControlsRight>
+          <Button text="Add new person..." onClick={toggleAddModal} />
+          <SearchFilter
+            searchFilter={searchFilter}
+            updateSearchFilter={updateSearchFilter}
+          />
+        </ControlsRight>
+      </Controls>
       <Line context="PersonList" />
       {persons
         .filter(person =>
@@ -76,6 +84,8 @@ function PersonList({
             />
           ),
         )}
+
+      {fetching && <Loading></Loading>}
     </Wrapper>
   );
 }
