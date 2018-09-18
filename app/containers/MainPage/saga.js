@@ -88,28 +88,32 @@ export function* findPerson(action) {
     yield put(
       updatePagination(results.data.additional_data.pagination),
     );
-    const normalized = results.data.data
-      .filter(({ type }) => type === 'person')
-      .map(({ id, title, details }) => ({
-        id,
-        name: title,
-        phone: [
-          {
-            value: details.phone,
+    if (results.data.data === null) {
+      yield put(receivePersons([]));
+    } else {
+      const normalized = results.data.data
+        .filter(({ type }) => type === 'person')
+        .map(({ id, title, details }) => ({
+          id,
+          name: title,
+          phone: [
+            {
+              value: details.phone,
+            },
+          ],
+          email: [
+            {
+              value: details.email,
+            },
+          ],
+          orgId: {
+            name: details.org_name,
           },
-        ],
-        email: [
-          {
-            value: details.email,
-          },
-        ],
-        orgId: {
-          name: details.org_name,
-        },
-        groups: details.groups,
-        location: details.location,
-      }));
-    yield put(receivePersons(normalized));
+          groups: details.groups,
+          location: details.location,
+        }));
+      yield put(receivePersons(normalized));
+    }
   } catch (error) {
     yield put(stopFetching());
     yield put(receiveError(error));

@@ -10,11 +10,13 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 
 import Pagination from 'components/Pagination';
-import SearchFilter from 'components/01-ui/SearchFilter';
 import PersonItem from 'components/PersonItem';
+
+import SearchFilter from 'components/01-ui/SearchFilter';
 import Line from 'components/01-ui/Line';
 import Button from 'components/01-ui/Button';
 import Loading from 'components/01-ui/Loading';
+import NoData from 'components/01-ui/NoData';
 
 import Wrapper from './styled/Wrapper';
 import Title from './styled/Title';
@@ -63,36 +65,44 @@ function PersonList({
           </div>
         </ControlsRight>
       </Controls>
-      <Line context="PersonList" />
-      {persons
-        .filter(person =>
-          filterValues.some(
-            value =>
-              person[value] !== null &&
-              person[value]
-                .toLowerCase()
-                .includes(searchFilter.toLowerCase()),
-          ),
-        )
-        .map(
-          (
-            { id, name, org_name: orgName, picture_id: pictureId },
-            index,
-          ) => (
-            <PersonItem
-              key={id}
-              index={index}
-              id={id}
-              name={name}
-              orgName={orgName}
-              pictureId={pictureId}
-              selectPerson={selectPerson}
-              toggleModal={toggleInfoModal}
-              movePersonItem={movePersonItem}
-            />
-          ),
-        )}
-
+      <Line context="PersonList" />{' '}
+      {/* eslint-disable prettier/prettier */}
+      {persons.length
+        ? persons
+          .filter(person =>
+            filterValues.some(
+              value =>
+                person[value] !== null &&
+                  person[value]
+                    .toLowerCase()
+                    .includes(searchFilter.toLowerCase()),
+            ),
+          )
+          .map(
+            (
+              {
+                id,
+                name,
+                org_name: orgName,
+                picture_id: pictureId,
+              },
+              index,
+            ) => (
+              <PersonItem
+                key={id}
+                index={index}
+                id={id}
+                name={name}
+                orgName={orgName}
+                pictureId={pictureId}
+                selectPerson={selectPerson}
+                toggleModal={toggleInfoModal}
+                movePersonItem={movePersonItem}
+              />
+            ),
+          )
+        : !fetching && <NoData>Nothing was found.</NoData>}
+      {/* eslint-enable */}
       {fetching && <Loading />}
     </Wrapper>
   );
