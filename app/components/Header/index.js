@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import LogoSvg from 'components/LogoSvg';
+import LogoSvg from 'components/01-ui/LogoSvg';
 
 import Wrapper from './styled/Wrapper';
 import LogoH1 from './styled/LogoH1';

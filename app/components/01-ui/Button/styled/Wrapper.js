@@ -24,6 +24,8 @@ const Wrapper = styled.button`
   &:first-of-type {
     margin-left: ${({ context }) => context !== 'PersonList' && 0};
   }
+
+  ${({ context }) => context === 'AddPerson' && `width: 100%;`};
 `;
 
 export default Wrapper;

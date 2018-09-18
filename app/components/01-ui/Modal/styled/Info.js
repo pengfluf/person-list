@@ -8,6 +8,10 @@ const Info = styled.div`
   padding-bottom: 30px;
   padding-left: 15px;
   padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+
+  ${({ context }) => context === 'AddPerson' && `max-width: 280px;`};
 `;
 
 export default Info;

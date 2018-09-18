@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash.flow';
 
-import Avatar from 'components/Avatar';
+import Avatar from 'components/01-ui/Avatar';
 
 import Wrapper from './styled/Wrapper';
 import Name from './styled/Name';

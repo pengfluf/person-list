@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import InputField from 'components/InputField';
+import InputField from 'components/01-ui/InputField';
 
 function SearchFilter({
   searchFilter,

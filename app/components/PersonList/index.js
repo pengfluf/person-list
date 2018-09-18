@@ -10,11 +10,11 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 
 import Pagination from 'components/Pagination';
-import SearchFilter from 'components/SearchFilter';
+import SearchFilter from 'components/01-ui/SearchFilter';
 import PersonItem from 'components/PersonItem';
-import Line from 'components/Line';
-import Button from 'components/Button';
-import Loading from 'components/Loading';
+import Line from 'components/01-ui/Line';
+import Button from 'components/01-ui/Button';
+import Loading from 'components/01-ui/Loading';
 
 import Wrapper from './styled/Wrapper';
 import Title from './styled/Title';

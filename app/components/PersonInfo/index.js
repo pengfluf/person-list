@@ -9,9 +9,9 @@ import PropTypes from 'prop-types';
 
 import getGroupName from 'helpers/getGroupName';
 
-import Avatar from 'components/Avatar';
-import Line from 'components/Line';
-import Modal from 'components/Modal';
+import Avatar from 'components/01-ui/Avatar';
+import Line from 'components/01-ui/Line';
+import Modal from 'components/01-ui/Modal';
 
 import Name from './styled/Name';
 import Phone from './styled/Phone';

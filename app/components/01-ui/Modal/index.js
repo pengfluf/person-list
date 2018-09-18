@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Button from 'components/Button';
-import Overlay from 'components/Overlay';
+import Button from 'components/01-ui/Button';
+import Overlay from 'components/01-ui/Overlay';
 
 import Wrapper from './styled/Wrapper';
 import Pane from './styled/Pane';
@@ -21,6 +21,7 @@ export function Modal({
   historyPush,
   deletePerson,
   personId,
+  context,
   children,
 }) {
   return (
@@ -35,7 +36,7 @@ export function Modal({
             }}
           />
         </Pane>
-        <Info>{...children}</Info>
+        <Info context={context}>{...children}</Info>
         <Pane position="bottom">
           {deletePerson && (
             <Button
@@ -66,6 +67,8 @@ Modal.propTypes = {
   toggleModal: PropTypes.func,
   historyPush: PropTypes.func,
   deletePerson: PropTypes.func,
+  personId: PropTypes.number,
+  context: PropTypes.string,
   children: PropTypes.object,
 };
 

@@ -9,9 +9,9 @@ import PropTypes from 'prop-types';
 
 import capitalize from 'helpers/capitalize';
 
-import Button from 'components/Button';
-import InputField from 'components/InputField';
-import Modal from 'components/Modal';
+import Button from 'components/01-ui/Button';
+import InputField from 'components/01-ui/InputField';
+import Modal from 'components/01-ui/Modal';
 
 function AddPerson({
   name,
@@ -25,6 +25,7 @@ function AddPerson({
       title="Add New Person"
       toggleModal={toggleModal}
       historyPush={historyPush}
+      context="AddPerson"
     >
       <Fragment>
         <InputField
@@ -61,6 +62,7 @@ AddPerson.propTypes = {
   addPerson: PropTypes.func,
   toggleModal: PropTypes.func,
   updateName: PropTypes.func,
+  historyPush: PropTypes.func,
 };
 
 export default AddPerson;
