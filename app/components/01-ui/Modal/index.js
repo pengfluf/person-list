@@ -36,7 +36,7 @@ export function Modal({
             }}
           />
         </Pane>
-        <Info context={context}>{...children}</Info>
+        <Info context={context}>{children}</Info>
         <Pane position="bottom">
           {deletePerson && (
             <Button

@@ -18,7 +18,7 @@ export function Overlay({ toggleModal, historyPush, children }) {
         }
       }}
     >
-      {...children}
+      {children}
     </OverlayWrapper>
   );
 }
