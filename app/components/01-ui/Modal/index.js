@@ -43,8 +43,6 @@ export function Modal({
               text="Delete Person"
               type="delete"
               onClick={() => {
-                toggleModal();
-                historyPush('/');
                 deletePerson(personId);
               }}
             />

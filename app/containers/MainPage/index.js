@@ -33,8 +33,6 @@ import {
   updateName,
 } from './actions';
 
-import Wrapper from './styled/Wrapper';
-
 export class MainPage extends React.Component {
   constructor(props) {
     super(props);
@@ -66,7 +64,7 @@ export class MainPage extends React.Component {
   }
 
   deletePerson(id) {
-    const answer = confirm(
+    const answer = window.confirm(
       'Are you sure that you want to delete this person?',
     );
     if (answer) {
@@ -75,6 +73,8 @@ export class MainPage extends React.Component {
       );
 
       if (index !== -1) {
+        this.props.toggleInfoModal();
+        this.props.history.push('/');
         this.props.deletePerson(id, index);
       }
     }
@@ -92,7 +92,7 @@ export class MainPage extends React.Component {
     } = this.props.mainPage;
 
     return (
-      <Wrapper>
+      <div>
         <Helmet>
           <title>Person List</title>
           <meta name="description" content="Person List" />
@@ -134,7 +134,7 @@ export class MainPage extends React.Component {
             updateName={this.props.updateName}
           />
         )}
-      </Wrapper>
+      </div>
     );
   }
 }

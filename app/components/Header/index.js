@@ -32,7 +32,6 @@ function Header({ getPersons, historyPush }) {
 
 Header.propTypes = {
   getPersons: PropTypes.func,
-  paginationStart: PropTypes.number,
   historyPush: PropTypes.func,
 };
 

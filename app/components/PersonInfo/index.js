@@ -103,6 +103,7 @@ PersonInfo.propTypes = {
     location: PropTypes.string,
   }),
   toggleModal: PropTypes.func,
+  deletePerson: PropTypes.func,
   historyPush: PropTypes.func,
 };
 

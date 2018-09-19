@@ -21,7 +21,6 @@ import NoData from 'components/01-ui/NoData';
 import Wrapper from './styled/Wrapper';
 import Title from './styled/Title';
 import Controls from './styled/Controls';
-import ControlsLeft from './styled/ControlsLeft';
 import ControlsRight from './styled/ControlsRight';
 
 function PersonList({
@@ -43,12 +42,12 @@ function PersonList({
     <Wrapper>
       <Title>People{"'"}s List</Title>
       <Controls>
-        <ControlsLeft>
+        <div>
           <Pagination
             pagination={pagination}
             getPersons={getPersons}
           />
-        </ControlsLeft>
+        </div>
         <ControlsRight>
           <Button text="Add new person..." onClick={toggleAddModal} />
           <div>
