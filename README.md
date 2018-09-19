@@ -1,6 +1,7 @@
 # Person List
 
 This application shows the list of persons fetched from the Pipedrive API. Test task.
+
 The project was created using [React Boilerplate](https://github.com/react-boilerplate/react-boilerplate). Check it out.
 
 # Features
